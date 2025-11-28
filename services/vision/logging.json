@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "standard": {
+      "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    }
+  },
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "formatter": "standard"
+    },
+    "file_access": {
+      "class": "logging.FileHandler",
+      "filename": "access.log",
+      "formatter": "standard"
+    },
+    "file_error": {
+      "class": "logging.FileHandler",
+      "filename": "error.log",
+      "formatter": "standard"
+    }
+  },
+  "loggers": {
+    "hypercorn.access": {
+      "handlers": ["file_access", "console"],
+      "level": "INFO",
+      "propagate": false
+    },
+    "hypercorn.error": {
+      "handlers": ["file_error", "console"],
+      "level": "ERROR",
+      "propagate": false
+    },
+    "": {
+      "handlers": ["console"],
+      "level": "INFO"
+    }
+  }
+}
