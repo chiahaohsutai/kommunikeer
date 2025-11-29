@@ -9,7 +9,7 @@ _prefix = "/api"
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_: FastAPI):
     """Lifespan context manager for FastAPI application."""
 
     extractor = TextExtractor()

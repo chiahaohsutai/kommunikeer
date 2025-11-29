@@ -19,6 +19,7 @@ python -m venv .venv && source .venv/bin/activate
 
 # Install UV and install the project dependencies
 pip install uv && uv sync
+python -m pip install paddlepaddle==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cpu
 
 # Run the service
 hypercorn main:app --workers 4 --log-config json:logging.json --log-level info --access-log - --error-log - -b 0.0.0.0:8000

@@ -8,7 +8,6 @@ dependencies = [
     "fastapi>=0.122.0",
     "hypercorn>=0.18.0",
     "paddleocr>=3.3.2",
-    "paddlepaddle>=3.2.2",
     "python-dotenv>=1.2.1",
     "python-multipart>=0.0.20",
 ]
