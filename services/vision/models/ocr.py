@@ -8,7 +8,8 @@ from typing import TypedDict
 
 import numpy as np
 from numpy.typing import NDArray
-from paddleocr import PaddleOCR
+from paddlex import create_pipeline
+from paddlex.inference.pipelines.base import BasePipeline
 from PIL import Image
 
 warnings.filterwarnings(
@@ -77,20 +78,12 @@ class TextExtractor(metaclass=SingletonMeta):
     def __init__(self, **kwargs) -> None:
         """Initializes the OCR predictor with the given configuration."""
 
-        self._ocr = PaddleOCR(
-            text_detection_model_dir=str(_txt_det_path),
-            text_recognition_model_dir=str(_txt_rec_path),
-            use_doc_orientation_classify=False,
-            use_doc_unwarping=False,
-            use_textline_orientation=False,
-            enable_mkldnn=False,
-            **kwargs,
-        )
-        # Lock to ensure thread-safe inference
+        config_path = Path(__file__).parent / "config.yml"
+        self._ocr = create_pipeline(pipeline=str(config_path))
         self._inference_lock = Lock()
 
     @property
-    def model(self) -> PaddleOCR:
+    def model(self) -> BasePipeline:
         """Returns the underlying PaddleOCR model."""
 
         return self._ocr
@@ -102,7 +95,7 @@ class TextExtractor(metaclass=SingletonMeta):
         pixels = np.array(img)[:, :, ::-1]
 
         with self._inference_lock:
-            return self._ocr.predict(input=pixels, **kwargs)[0]
+            return next(self._ocr.predict(input=pixels, **kwargs))
 
     def __call__(self, data: bytes, **kwargs) -> Analysis:
         """Performs OCR prediction on the input data."""

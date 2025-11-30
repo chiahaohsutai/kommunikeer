@@ -3,4 +3,5 @@
 
 # But not .py files and this .gitignore
 !*.py
+!*.yml
 !.gitignore

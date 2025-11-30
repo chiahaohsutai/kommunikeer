@@ -17,12 +17,27 @@ hf download PaddlePaddle/PP-OCRv5_server_rec inference.json inference.pdiparams 
 # Create Python virtual environment and activate the environment (MacOS)
 python -m venv .venv && source .venv/bin/activate
 
-# Install UV and install the project dependencies
-pip install uv && uv sync
-python -m pip install paddlepaddle==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cpu
+# Install the project dependencies
+pip install -r requirements.txt
 
 # Run the service
 hypercorn main:app --workers 4 --log-config json:logging.json --log-level info --access-log - --error-log - -b 0.0.0.0:8000
 ```
 
 The application will be running on http://localhost:8000 and the OpenAPI UI can be found at http://localhost:8000/api/docs
+
+# Docker
+
+Because PaddlePaddle is officially supported only on x86_64 architecture, on ARM-based systems (like Apple Silicon Macs) the Docker build process is a little different. In that case, we leverage Docker Buildx to build the image for AMD/x86_64. If you’re already on an x86_64 system, you can build normally with:
+
+```bash
+docker build -t my-image-name:tag .
+docker run -p 8000:8000 my-image-name:tag
+```
+
+Otherwise (on ARM), use Buildx to target the correct architecture before building.
+
+```bash
+docker buildx build --platform linux/amd64 -t my-image-name:tag --load .
+docker run --platform linux/amd64 -p 8000:8000 my-image-name:tag
+```
