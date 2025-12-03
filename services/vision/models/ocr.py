@@ -1,3 +1,4 @@
+from os import getenv
 import logging
 import warnings
 from dataclasses import dataclass
@@ -79,7 +80,14 @@ class TextExtractor(metaclass=SingletonMeta):
         """Initializes the OCR predictor with the given configuration."""
 
         config_path = Path(__file__).parent / "config.yml"
-        self._ocr = create_pipeline(pipeline=str(config_path))
+        use_hpip = bool(int(getenv("USE_HPIP", 0)))
+
+        self._ocr = create_pipeline(
+            pipeline=str(config_path),
+            device="cpu",
+            use_hpip=use_hpip,
+            **kwargs,
+        )
         self._inference_lock = Lock()
 
     @property

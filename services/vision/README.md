@@ -35,7 +35,7 @@ docker build -t my-image-name:tag .
 docker run -p 8000:8000 my-image-name:tag
 ```
 
-Otherwise (on ARM), use Buildx to target the correct architecture before building.
+Otherwise (on ARM), use Buildx to target the correct architecture before building. Please not that AMD emulation dramatically increases the inference response time due to the need to emulate x86_64. So for local development in MacOS, its recommended to install and run the service locally.
 
 ```bash
 docker buildx build --platform linux/amd64 -t my-image-name:tag --load .

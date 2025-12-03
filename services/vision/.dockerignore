@@ -1,0 +1,65 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Docker / build files
+Dockerfile*
+docker-compose.yml
+.dockerignore
+
+# Python compiled files and caches
+**/__pycache__/
+**/*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments, local envs, build dirs
+.env
+.venv/
+venv/
+env/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+*.egg-info/
+*.egg
+*.lock
+
+# Test / coverage / artifacts
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.cache/
+.pytest_cache/
+nose2-*.xml
+*.log
+logs/
+*.sqlite3
+*.db
+
+# IDE / editor files
+.vscode/
+.idea/
+*.swp
+*~ 
+.DS_Store
+
+# Documentation / build outputs
+docs/_build/
+docs/build/
+*.rst~
+*.DS_Store
+
+# Miscellaneous OS files
+Thumbs.db
