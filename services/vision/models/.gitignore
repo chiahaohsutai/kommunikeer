@@ -1,0 +1,7 @@
+# Ignore all files in this directory
+*
+
+# But not .py files and this .gitignore
+!*.py
+!*.yml
+!.gitignore

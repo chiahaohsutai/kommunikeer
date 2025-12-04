@@ -1,0 +1,25 @@
+
+pipeline_name: OCR
+
+text_type: general
+
+use_doc_preprocessor: False
+use_textline_orientation: False
+
+SubModules:
+  TextDetection:
+    module_name: text_detection
+    model_name: PP-OCRv5_server_det
+    model_dir: ./models/det
+    limit_side_len: 64
+    limit_type: min
+    max_side_limit: 4000
+    thresh: 0.1
+    box_thresh: 0.6
+    unclip_ratio: 1.5
+  TextRecognition:
+    module_name: text_recognition
+    model_name: PP-OCRv5_server_rec 
+    model_dir: ./models/rec
+    batch_size: 6
+    score_thresh: 0.0

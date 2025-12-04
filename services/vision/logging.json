@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "with_pid": {
+      "format": "%(asctime)s.%(msecs)03d [%(process)d] [%(levelname)s] %(name)s: %(message)s",
+      "datefmt": "%Y-%m-%d %H:%M:%S"
+    }
+  },
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "formatter": "with_pid",
+      "level": "INFO"
+    }
+  },
+  "loggers": {
+    "hypercorn.access": {
+      "handlers": ["console"],
+      "level": "INFO",
+      "propagate": false
+    },
+    "hypercorn.error": {
+      "handlers": ["console"],
+      "level": "INFO",
+      "propagate": false
+    }
+  },
+  "root": {
+    "handlers": ["console"],
+    "level": "WARNING"
+  }
+}
